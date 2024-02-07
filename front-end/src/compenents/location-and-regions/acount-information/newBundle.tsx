@@ -9,51 +9,15 @@ import { Box, Button, FormControl, Stack, Switch,  Typography } from '@mui/mater
 import { BundleApi } from '@/_types';
 import TInput from '@/compenents/TInput';
 import SaveIcon from '@mui/icons-material/Save';
-import { ServiceCreateBundle } from '@/services/bundles';
 
 export default function NewBundle({edit=true, bundle }: { edit?: boolean, bundle?: BundleApi }) {
   const router = useRouter()
   const [disable, setDisable] = React.useState(edit)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      const data = new FormData(event.currentTarget);
-      const bundle: BundleApi = {
-        Price: parseFloat( data.get('Price') as string),
-        Key: data.get('Key') as string,
-        Name_Lang1: data.get('Name_Lang1') as string,
-        ServiceType: data.get('ServiceType') as string,
-        Validity_In_Days: parseInt( data.get('Validity_In_Days') as string),
-        Validity_Type: data.get('Validity_Type') as string,
-        Validity_Value: 0,
-        ChargingReason: '',
-        Description_Lang1: data.get('Description_Lang1') as string,
-        Description_Lang2: data.get('Description_Lang1') as string,
-        Description_Lang3: data.get('Description_Lang1') as string,
-        Id: 0,
-        IsAvailableForOthers: false,
-        IsPromotional: false,
-        IsRecurring: false,
-        AllowOverdraft: false,
-        Location_Areas: '',
-        Name_Lang2: data.get('Description_Lang1') as string,
-        Name_Lang3: data.get('Description_Lang1') as string,
-        Notification_Profile_AutoRenewAhead: '',
-        Notification_Profile_AutoRenewFailed_General: '',
-        Notification_Profile_AutoRenewFailed_LowBalance: '',
-        Notification_Profile_AutoRenewSuccessful: '',
-        Notification_Profile_Failed_General: '',
-        Notification_Profile_Failed_LowBalance: '',
-        Notification_Profile_Successful: '',
-        Notification_Sender: '',
-        OverdraftLimit: 0,
-        ProductionFlag: 1,
-        RecuringBundleKey: '',
-        Status: '',
-      }
+     
 
       try {
-        await ServiceCreateBundle(bundle)
         alert('Bundles created successful')
         router.back()
         return

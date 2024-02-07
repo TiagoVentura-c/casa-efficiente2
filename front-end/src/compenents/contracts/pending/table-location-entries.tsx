@@ -78,6 +78,7 @@ export const CustomersTable = (props: any) => {
                 <TableCell>Valor pago</TableCell>
                 <TableCell>Cliente</TableCell>
                 <TableCell>Descricao do cliente</TableCell>
+                <TableCell>Estado</TableCell>
                 <TableCell></TableCell>
               </TableRow>
             </TableHead>
@@ -114,12 +115,12 @@ export const CustomersTable = (props: any) => {
                           {item.id}
                         </Avatar>
                         <Typography variant="subtitle2">
-                          {item.startDate}
+                          { new Date(item.startDate).toISOString()}
                         </Typography>
                       </Stack>
                     </TableCell>
                     <TableCell>
-                        <Typography  variant="subtitle2"> { item.typeContract == 'Alugar' ? 'Aluguel': 'Venda' }</Typography>
+                        <Typography  variant="subtitle2"> { item.typePropertyBusiness == 'ALUGUEL' ? 'Aluguel': 'Venda' }</Typography>
                     </TableCell>
                     <TableCell>
                       {item.totalPaid} KZ
@@ -129,6 +130,9 @@ export const CustomersTable = (props: any) => {
                     </TableCell>
                     <TableCell>
                       { item.clientDescription}
+                    </TableCell>
+                    <TableCell>
+                      <Typography color={'white'} bgcolor={ item.statusContract == 'APPROVED' ?  '#32a852': 'red' } variant="subtitle2">{item.statusContract}</Typography>
                     </TableCell>
                     <TableCell>
                       <IconButton onClick={() => {

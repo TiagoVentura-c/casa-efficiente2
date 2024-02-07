@@ -17,12 +17,7 @@ export default function RootLayout({ children }: Props) {
                     path="/location-and-regions"
                     items={[
                         {
-                        text: 'Corretores',
-                        },
-                        {
-                            text: 'Clientes',
-                            segment: 'location-entries',
-                            slug: 'clients'
+                        text: 'Usuarios',
                         }
                     ]}
                 />

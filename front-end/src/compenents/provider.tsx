@@ -1,7 +1,5 @@
 'use client'
 import { BundleApi, Channel, MCatalogues, Plan, ServiceType } from '@/_types';
-import { ServiceGetBundle } from '@/services/bundles';
-import { ServiceGetCatalogues } from '@/services/dashboard';
 import React, {createContext, useEffect, useState} from 'react';
 
 export type AppContextInterface = {

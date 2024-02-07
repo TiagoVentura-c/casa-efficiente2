@@ -20,8 +20,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import AddIcon from '@mui/icons-material/Add';
-import { AddEntryToCatalogue } from '@/services/catalogue';
-import useFetchBundle from '@/queries/bundles';
 import { useCatalogueMap } from '@/store/useCatalogueMap';
 
 export default function ButttonNewEntry({ Key }: {Key: string}) {
@@ -52,7 +50,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 export function EntryForm({open, setOpen, edit=false, plan, Key }: {open: boolean, setOpen: any, edit?: boolean, plan?: Plan, Key: string } ) {
   const navigation = useRouter()
-  const { data: bundles, } = useFetchBundle()
 
   const updateColumns = useCatalogueMap(state => state.updateColumns)
   const updateOrdered = useCatalogueMap(state => state.updateOrdered)
@@ -186,7 +183,6 @@ export function EntryForm({open, setOpen, edit=false, plan, Key }: {open: boolea
                         />
                     </Box>
 
-                    <CheckboxesTags selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions} bundles={bundles as BundleApi[]} />
                     <LoadingButton
                         disabled={disable}
                         loading={loading}

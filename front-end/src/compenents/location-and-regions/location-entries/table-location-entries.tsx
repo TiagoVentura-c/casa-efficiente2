@@ -120,7 +120,7 @@ export const CustomersTable = (props: any) => {
                       </Stack>
                     </TableCell>
                     <TableCell>
-                        <Typography  variant="subtitle2"> { item.typeContract == 'Alugar' ? 'Aluguel': 'Vendido' }</Typography>
+                        <Typography  variant="subtitle2"> { item.typePropertyBusiness == 'ALUGUEL' ? 'Aluguel': 'Vendido' }</Typography>
                     </TableCell>
                     <TableCell>
                       {item.totalPaid} KZ

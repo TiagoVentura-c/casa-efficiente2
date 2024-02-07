@@ -20,9 +20,10 @@ import KeyIcon from '@mui/icons-material/Key';
 import DescriptionIcon from '@mui/icons-material/Description';
 import TInput from '@/compenents/TInput';
 import { useSnackbar } from 'notistack';
-import { Immobile } from '@/_types/index2';
+import { Immobile, Person } from '@/_types/index2';
 import { QuiltedImageList } from '@/compenents/users/add-new'; 
 import { ServiceCreateImmobile, ServiceUpdateUpdate } from '@/services/immbile';
+import Cookies from 'js-cookie';
 
 
 type Photo = {
@@ -107,6 +108,8 @@ export function LocationAreaInfo({open, setOpen, edit=false, item }: {open: bool
       event.preventDefault();
       const data = new FormData(event.currentTarget);
       setLoading(true)
+      const storedUser: Person = JSON.parse(Cookies.get('user') as string);
+
 
       try {
 
@@ -132,6 +135,9 @@ export function LocationAreaInfo({open, setOpen, edit=false, item }: {open: bool
             typePropertyBusiness: typeContract,
             id: item?.id,
             ratingAverage: 0,
+            broker: {
+              id: storedUser.id as number
+            }
           }
 
           if(!edit) await ServiceCreateImmobile(immobile)

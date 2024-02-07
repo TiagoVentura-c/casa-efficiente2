@@ -8,22 +8,22 @@ import { CustomersTable } from "./table-location-entries";
 import MDSearch from "@/compenents/search";
 import AddNew from "./add-new";
 import { useSnackbar } from "notistack";
-import { Contract } from "@/_types/index2";
-import { ServiceGetServiceContracts } from "@/services/property";
+import { Contract, Person } from "@/_types/index2";
+import { ServiceGetServiceApprovedContractsClient, ServiceGetServiceContracts } from "@/services/property";
+import Cookies from "js-cookie";
 
 export default function LocationEntries(){
   const { enqueueSnackbar } = useSnackbar();
   // const { data }  = useFetchLocationEntry()
-  const [data, setData] = useState<Contract[] | undefined>([])
-  const [rows, setRows] = useState<Contract[] | undefined>(data)
+  const [rows, setRows] = useState<Contract[] | undefined>([])
 
   useEffect(() => {
-    ServiceGetServiceContracts()
+  const storedUser: Person | undefined = JSON.parse(Cookies.get('user') ?? '{}')
+    ServiceGetServiceApprovedContractsClient(storedUser?.id as number)
       .then(ressult => {
-        setData(ressult)
+        setRows(ressult)
       })
-    setRows(data)
-  }, [data])
+  }, [])
 
   const [selected, setSelected] = useState<number[]>([])
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -65,23 +65,7 @@ export default function LocationEntries(){
   }
 
     const handleSearch = (event: any) => {
-      // Filtrar o array com base no termo fornecido
-      // const sentence = event.target.value.toLowerCase()
-      // const result = data?.filter((row: LocationEntry) => {
-      //     return sentence === ""
-      //       ? data
-      //       : row.Key.toString().toLowerCase().includes(sentence) ||
-      //       row.Bsname.toString().toLowerCase().includes(sentence) ||
-      //       row.Id.toString().toLowerCase().includes(sentence) ||
-      //       row.Municipality.toString().toLowerCase().includes(sentence) ||
-      //       row.Provinces.toString().toLowerCase().includes(sentence) ||
-      //       row.Latitude.toString().toLowerCase().includes(sentence) ||
-      //       row.Longitude.toString().toLowerCase().includes(sentence) ||
-      //       row.LAC.toString().toLowerCase().includes(sentence)
-      //   })
-
-      // setRows(result)
-      // return result
+      
     }
   
     return(

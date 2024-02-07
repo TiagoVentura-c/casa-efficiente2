@@ -5,7 +5,6 @@ import Image from "next/image";
 import { Bundle } from "@/_types";
 import { Typebundle } from "@/_types";
 import { useRouter } from "next/navigation";
-import { CardAnimation } from "./dashboard/summary/cardBalance";
 
 type Props = {
     bundle: Bundle
@@ -20,7 +19,6 @@ export default function CardBundle({bundle}: Props){
     };
 
     return(
-        <CardAnimation>
             <BoxBorder   width={220} height={130} >
                 <Stack direction={'row'}  margin={2} >
                     <Box flex={1} >
@@ -33,7 +31,6 @@ export default function CardBundle({bundle}: Props){
                     <Typography>KZ {bundle.Price}</Typography>
                 </Stack>
             </BoxBorder>
-        </CardAnimation>
     )
 }
 

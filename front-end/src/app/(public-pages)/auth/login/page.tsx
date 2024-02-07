@@ -6,6 +6,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import ServiceLogin from '@/services/auth';
 import { useState } from 'react';
 import PersonIcon from '@mui/icons-material/Person';
+import { Person } from '@/_types/index2';
 
 export default function Login(){
     const [loading, setLoading] = useState(false)
@@ -19,10 +20,12 @@ export default function Login(){
         setLoading(true)
 
         try {
-            const userData = await ServiceLogin(username, password)
-            
+            const userData: Person = await ServiceLogin(username, password)
 
-            router.push('/plans')
+            if(userData.type == 'ADMIN') return router.push('/service-types')
+            if(userData.type == 'BROKER') return router.push('/plans')
+            if(userData.type == 'CLIENT') return router.push('/location-and-regions')
+            
             return
 
         } catch (error) {

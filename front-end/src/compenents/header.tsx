@@ -15,6 +15,8 @@ import GlobalLoading from './global-loading';
 import { useRouter } from 'next/navigation';
 import Cookie from 'js-cookie';
 import Link from 'next/link';
+import { Person } from '@/_types/index2';
+import Cookies from 'js-cookie';
 
 interface Setting {
   item: string;
@@ -26,6 +28,7 @@ interface Setting {
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const storedUser: Person | undefined = JSON.parse(Cookies.get('user') ?? '{}')
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -46,22 +49,11 @@ function Header() {
 
     const handleLogout = () => {
         Cookie.remove('access_token')
+        Cookie.remove('user')
         router.push('/auth/login')
     }
 
     const settings: Setting[] = [
-      {
-        item: 'Profile',
-        onClick: () => {}
-      },
-      {
-        item: 'Account',
-        onClick: () => {}
-      },
-      {
-        item: 'Dashboard',
-        onClick: () => {}
-      },
       {
         item: 'Logout',
         onClick: handleLogout
@@ -85,7 +77,7 @@ function Header() {
                 <Tooltip title="Open settings">
                     <Avatar alt="Remy Sharp" src="/images/Avatar.svg" />
                 </Tooltip>
-                <Typography ml={1} fontWeight={'550'} >Tiago Ventura</Typography>
+                <Typography ml={1} fontWeight={'550'} >{storedUser?.firstName + ' ' + storedUser?.lastName}</Typography>
                 <KeyboardArrowDownIcon accentHeight={20} />
             </IconButton>
             <Menu

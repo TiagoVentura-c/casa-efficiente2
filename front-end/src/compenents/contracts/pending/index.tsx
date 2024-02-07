@@ -10,18 +10,14 @@ import AddNew from "./add-new";
 import { useSnackbar } from "notistack";
 import { Contract } from "@/_types/index2";
 import { ServiceGetServiceContracts } from "@/services/property";
+import useFetchPendingContract from "@/queries/contract";
 
 export default function Pending(){
   const { enqueueSnackbar } = useSnackbar();
-  // const { data }  = useFetchLocationEntry()
-  const [data, setData] = useState<Contract[] | undefined>([])
+  const { data }  = useFetchPendingContract()
   const [rows, setRows] = useState<Contract[] | undefined>(data)
 
   useEffect(() => {
-    ServiceGetServiceContracts()
-      .then(ressult => {
-        setData(ressult)
-      })
     setRows(data)
   }, [data])
 

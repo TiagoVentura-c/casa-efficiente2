@@ -17,7 +17,6 @@ import dayjs, { Dayjs } from 'dayjs';
 import KeyIcon from '@mui/icons-material/Key';
 import { LocationEntry } from '@/_types';
 import TInput from '@/compenents/TInput';
-import { ServiceCreateLocationEntry, ServiceUpdateLocationEntry } from '@/services/locationEntry';
 
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -103,7 +102,7 @@ export function LocationEntryInfo({open, setOpen, edit=false, item }: {open: boo
         </IconButton>
         <DialogContent dividers>
           <FormControl  onChange={() => disable ? setDisable(!disable): null} sx={{width: '60%', alignItems: 'flex-start',}}  component="form" onSubmit={handleSubmit}>
-                    <TInput title='Tipo de contracto' defaultValue={item?.typeContract}  id="Key" name='Key'
+                    <TInput title='Tipo de contracto' defaultValue={item?.typePropertyBusiness}  id="Key" name='Key'
                           InputProps={{
                               startAdornment: (
                               <InputAdornment position="start">

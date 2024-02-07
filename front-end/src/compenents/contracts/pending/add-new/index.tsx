@@ -17,12 +17,12 @@ import dayjs, { Dayjs } from 'dayjs';
 import KeyIcon from '@mui/icons-material/Key';
 import { LocationEntry } from '@/_types';
 import TInput from '@/compenents/TInput';
-import { ServiceCreateLocationEntry, ServiceUpdateLocationEntry } from '@/services/locationEntry';
 
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { useSnackbar } from 'notistack';
 import { Contract } from '@/_types/index2';
+import { ServiceAproveServicePendingContracts } from '@/services/property';
 
 export default function AddNew() {
 
@@ -67,11 +67,15 @@ export function LocationEntryInfo({open, setOpen, edit=false, item }: {open: boo
       setLoading(true)
 
       try {
-          enqueueSnackbar('Location entry updated successful!', { variant: 'success' });
+
+          await ServiceAproveServicePendingContracts(item as Contract)
+          
+          enqueueSnackbar('Contracto aprovados com sucesso', { variant: 'success' });
           setOpen(false)
+          location.reload()
           return
       } catch (error) {
-          enqueueSnackbar('Failed to execute operation ' + error, { variant: 'error' });
+          enqueueSnackbar('Falha ao aprovar contracto ' + error, { variant: 'error' });
       }
       finally{
         setLoading(false)
@@ -102,7 +106,7 @@ export function LocationEntryInfo({open, setOpen, edit=false, item }: {open: boo
         </IconButton>
         <DialogContent dividers>
           <FormControl  onChange={() => disable ? setDisable(!disable): null} sx={{width: '60%', alignItems: 'flex-start',}}  component="form" onSubmit={handleSubmit}>
-                    <TInput title='Tipo de contracto' defaultValue={item?.typeContract}  id="Key" name='Key'
+                    <TInput title='Tipo de contracto' defaultValue={item?.typePropertyBusiness}  id="Key" name='Key'
                           InputProps={{
                               startAdornment: (
                               <InputAdornment position="start">

@@ -10,18 +10,14 @@ import AddNew from "./add-new";
 import { useSnackbar } from "notistack";
 import { Contract } from "@/_types/index2";
 import { ServiceGetServiceContracts } from "@/services/property";
+import { useFetchApprovedContract } from "@/queries/contract";
 
 export default function Contracts(){
   const { enqueueSnackbar } = useSnackbar();
-  // const { data }  = useFetchLocationEntry()
-  const [data, setData] = useState<Contract[] | undefined>([])
+  const { data }  = useFetchApprovedContract()
   const [rows, setRows] = useState<Contract[] | undefined>(data)
 
   useEffect(() => {
-    ServiceGetServiceContracts()
-      .then(ressult => {
-        setData(ressult)
-      })
     setRows(data)
   }, [data])
 
@@ -65,23 +61,7 @@ export default function Contracts(){
   }
 
     const handleSearch = (event: any) => {
-      // Filtrar o array com base no termo fornecido
-      // const sentence = event.target.value.toLowerCase()
-      // const result = data?.filter((row: LocationEntry) => {
-      //     return sentence === ""
-      //       ? data
-      //       : row.Key.toString().toLowerCase().includes(sentence) ||
-      //       row.Bsname.toString().toLowerCase().includes(sentence) ||
-      //       row.Id.toString().toLowerCase().includes(sentence) ||
-      //       row.Municipality.toString().toLowerCase().includes(sentence) ||
-      //       row.Provinces.toString().toLowerCase().includes(sentence) ||
-      //       row.Latitude.toString().toLowerCase().includes(sentence) ||
-      //       row.Longitude.toString().toLowerCase().includes(sentence) ||
-      //       row.LAC.toString().toLowerCase().includes(sentence)
-      //   })
 
-      // setRows(result)
-      // return result
     }
   
     return(

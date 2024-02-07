@@ -105,7 +105,7 @@ export function LocationEntryInfo({open, setOpen, edit=false, item }: {open: boo
         open={open}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          {'Detalhes de contrato'}
+          {'Usuarios'}
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -121,6 +121,8 @@ export function LocationEntryInfo({open, setOpen, edit=false, item }: {open: boo
         </IconButton>
         <DialogContent dividers>
           <FormControl  onChange={() => disable ? setDisable(!disable): null} sx={{width: '60%', alignItems: 'flex-start',}}  component="form" onSubmit={handleSubmit}>
+                    <TInput title={'Nome'} placeholder='e.g.: 232' defaultValue={item?.firstName} name="firstName" />
+                    <TInput title={'Sobrenome'} defaultValue={item?.lastName} name="lastName" />
                     <TInput title='Usuario' defaultValue={item?.user}  id="Key" name='user'
                           InputProps={{
                               startAdornment: (
@@ -130,8 +132,6 @@ export function LocationEntryInfo({open, setOpen, edit=false, item }: {open: boo
                               ),
                           }}
                     />
-                    <TInput title={'Nome'} placeholder='e.g.: 232' defaultValue={item?.firstName} name="firstName" />
-                    <TInput title={'Sobrenome'} defaultValue={item?.lastName} name="lastName" />
                     <TInput title={'Numero de BI'} defaultValue={item?.nationalId} name="nationalId" />
                     <TInput title={'Endereço'}  defaultValue={item?.address} name="address" />
 

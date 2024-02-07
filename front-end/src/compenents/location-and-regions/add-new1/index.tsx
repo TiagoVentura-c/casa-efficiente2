@@ -22,6 +22,8 @@ import { useSnackbar } from 'notistack';
 import { Immobile, Person } from '@/_types/index2';
 import { QuiltedImageList } from '../location-entries/add-new';
 import Cookies from "js-cookie";
+import Title from '@/compenents/dnd/styles/title';
+import { ServiceCreateSendContractRequest } from '@/services/property';
 
 
 export default function AddNew() {
@@ -69,9 +71,10 @@ export function LocationAreaInfo({open, setOpen, edit=false, item }: {open: bool
 
       try {
           const storedUser: Person = JSON.parse(Cookies.get('user') as string);
-          
+          const totalPaid = (data.get('clientPrice') as unknown ) as number
+          const clientDescription = data.get('clientDescription') as string
 
-          console.log(storedUser)
+          await ServiceCreateSendContractRequest(item as Immobile, storedUser, totalPaid, clientDescription)
           
           enqueueSnackbar('Pedido de contracto enviado!', { variant: 'success' });
           setOpen(false)
@@ -93,7 +96,7 @@ export function LocationAreaInfo({open, setOpen, edit=false, item }: {open: bool
         open={open}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          {!edit ? 'Create location area': 'Create update area'}
+          {item?.name}
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -109,17 +112,17 @@ export function LocationAreaInfo({open, setOpen, edit=false, item }: {open: bool
         </IconButton>
         <DialogContent dividers>
           <FormControl  onChange={() => disable ? setDisable(!disable): null} sx={{width: '60%', alignItems: 'flex-start',}}  component="form" onSubmit={handleSubmit}>
+                    <Title>Detalhes do imovel</Title>
 
-                    <TInput title={'Name'} placeholder='e.g.: Luanda|Luanda' id="Key" name="name" defaultValue={edit ? item?.name: undefined}  InputProps={{
+                    <TInput title={'Name'} placeholder='e.g.: Luanda|Luanda' id="Key" name="name" value={edit ? item?.name: undefined}  InputProps={{
                         startAdornment: (
                         <InputAdornment position="start">
                             <KeyIcon fontSize='small' />
                         </InputAdornment>
                         ),
                     }} />
-
                     <TInput title={'Description'} placeholder='e.g.: Location for costumers in Luanda' id="Description"  
-                            rows={4} name="Description" multiline defaultValue={edit ? item?.description: undefined} 
+                            rows={4} name="Description" multiline value={edit ? item?.description: undefined} 
                             InputProps={{
                               startAdornment: (
                               <InputAdornment position="start">
@@ -129,15 +132,28 @@ export function LocationAreaInfo({open, setOpen, edit=false, item }: {open: bool
                           }}
                     />
 
-                    <TInput title='Preço' placeholder='e.g.: Luanda' id="Province" name="Province" defaultValue={edit ? item?.price: undefined} />
-                    <TInput title='Tipo' placeholder='e.g.: Luanda' id="Province" name="Province" defaultValue={edit ? item?.type: undefined} />
-                    <TInput title='Esta disponivel' placeholder='e.g.: Luanda' id="Province" name="Province" defaultValue={edit ? item?.isAvailable ? 'SIM': 'NAO': undefined} />
-                    <TInput title='Tipo de contrato' placeholder='e.g.: Luanda' id="Province" name="Province" defaultValue={edit ? item?.typePropertyBusiness == 'ALUGUEL' ? 'Aluguel': 'Venda': undefined} />
-                    <TInput title='Dimesao' placeholder='e.g.: Luanda' id="Province" name="Province" defaultValue={edit ? item?.dimention.height + ' altura, ' + item?.dimention.length + ' cumprimento, '  + item?.dimention.width + ' largura' : undefined} />
-                    <TInput title={'Coordenadas do imovel'}  name="Latitude" defaultValue={edit ? item?.location.lat+ ', ' + item?.location.lon : undefined}  />
-                    <TInput title={'Avaliações'}  name="Latitude" defaultValue={ item?.ratingAverage }  />
+                    <TInput title='Preço' placeholder='e.g.: Luanda' id="Province" name="Province" value={edit ? item?.price: undefined} />
+                    <TInput title='Tipo' placeholder='e.g.: Luanda' id="Province" name="Province" value={edit ? item?.type: undefined} />
+                    <TInput title='Esta disponivel' placeholder='e.g.: Luanda' id="Province" name="Province" value={edit ? item?.isAvailable ? 'SIM': 'NAO': undefined} />
+                    <TInput title='Tipo de contrato' placeholder='e.g.: Luanda' id="Province" name="Province" value={edit ? item?.typePropertyBusiness == 'ALUGUEL' ? 'Aluguel': 'Venda': undefined} />
+                    <TInput title='Dimesao' placeholder='e.g.: Luanda' id="Province" name="Province" value={edit ? item?.dimention.height + ' altura, ' + item?.dimention.length + ' cumprimento, '  + item?.dimention.width + ' largura' : undefined} />
+                    <TInput title={'Coordenadas do imovel'}  name="Latitude" value={edit ? item?.location.lat+ ', ' + item?.location.lon : undefined}  />
+                    <TInput title={'Avaliações'}  name="Latitude" value={ item?.ratingAverage }  />
                     <QuiltedImageList photos={item?.photos} />
-                    <HoverRating />
+                   
+                    <Title>Faça a sua proposta</Title>
+                    
+                    <TInput title='Preço' placeholder='e.g.: Luanda' id="Province" name="clientPrice" type='number' />
+                    <TInput title={'Description'} placeholder='e.g.: Casa muito bonita, desejo comprar' id="Description"  
+                            rows={4} name="clientDescription" multiline 
+                            InputProps={{
+                              startAdornment: (
+                              <InputAdornment position="start">
+                                  <DescriptionIcon fontSize='small' />
+                              </InputAdornment>
+                              ),
+                          }}
+                    />
                     
                     <LoadingButton
                         disabled={disable}

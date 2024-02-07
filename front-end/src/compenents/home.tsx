@@ -4,7 +4,6 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import Summary from './dashboard/summary/summary';
 
 export default function LabTabs() {
   const [value, setValue] = React.useState('1');
@@ -25,7 +24,6 @@ export default function LabTabs() {
             <Tab label="Profile" value="3" sx={TabStyle}/>
           </TabList>
         </Box>
-        <TabPanel value="1"> <Summary /> </TabPanel>
         <TabPanel value="2">Usage History</TabPanel>
         <TabPanel value="3">Profile</TabPanel>
       </TabContext>

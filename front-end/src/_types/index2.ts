@@ -26,7 +26,7 @@ export type Immobile = {
         "title": string,
         "url": string,
       }[],
-    broker: Person
+    broker: Person | { id: number}
 }
 
 export type Person = {
@@ -45,12 +45,12 @@ export type Contract = {
     id?: number
     client: Person
     broker: Person
-    typeContract: 'Alugar' | 'Vender'
+    typePropertyBusiness: 'ALUGUEL' | 'VENDA'
     startDate: string
     endDate?: string
     immobile: Immobile
     totalPaid: number
     contractTimeInDays?: number
-    stateContract? : 'Approved' | "Pending"
+    statusContract? : 'APPROVED' | "PENDING"
     clientDescription?: string
 }

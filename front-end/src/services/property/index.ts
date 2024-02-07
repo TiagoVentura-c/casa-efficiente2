@@ -21,12 +21,67 @@ export async function ServiceGetServiceContracts(){
     }
 }
 
-export async function ServiceCreateSendContractRequest(immobile: Immobile, client: Person){
+export async function ServiceGetServicePendingContracts(){
     try {
+        const contracts: Contract[] = (await apiManager().get('/contract')).data
+        return contracts
+    } catch (error) {
+        throw error
+    }
+}
 
+export async function ServiceGetServiceApprovedContracts(){
+    try {
+        const contracts: Contract[] = (await apiManager().get('/contract/get-approved')).data
+        return contracts
+    } catch (error) {
+        throw error
+    }
+}
+
+export async function ServiceGetServiceApprovedContractsClient(id: number){
+    try {
+        const contracts: Contract[] = (await apiManager().get('/contract/get-approved', {
+            data: {
+                "id": id
+            }
+        })).data
+        return contracts
+    } catch (error) {
+        throw error
+    }
+}
+
+export async function ServiceAproveServicePendingContracts(contrat: Contract){
+    try {
+        const res = await apiManager().post('/contract/approve', {
+            id: contrat.id
+        })
+
+
+        return res.data
+    } catch (error) {
+        throw error
+    }
+}
+
+export async function ServiceCreateSendContractRequest(immobile: Immobile, client: Person, totalPaid: number, clientDescription: string){
+    try {
         /** send request contract */
         const res = await  apiManager().post('contract', {
-            
+            "typePropertyBusiness": immobile.typePropertyBusiness,
+            "client": {
+                "id": client.id
+            },
+            "broker": {
+                "id": immobile.broker.id
+            },
+            "immobile": {
+                "id": immobile.id
+            },
+            "startDate": "2024-01-28",
+            "totalPaid": totalPaid,
+            "clientDescription": clientDescription
         })
 
         return res.data.Data
@@ -37,22 +92,14 @@ export async function ServiceCreateSendContractRequest(immobile: Immobile, clien
 
 export async function ServiceEditServiceTypes(ServiceType: ServiceType & { NewKey: string }){
     try {
-        const res = await  apiManager().put('HTTP_ServiceType/', {
-            "Id": ServiceType.Id,
-            "Key" : ServiceType.Key,
-	        "Description" : ServiceType.Description,
-            "NewKey" : ServiceType.NewKey
-        })
-
-        return res.data.Data
+  
     } catch (error) {
         throw error
     }
 }
 export async function ServiceDeleteServiceTypes(ServiceTypeKey: string){
     try {
-        const res = await  apiManager().delete(`HTTP_ServiceType/${ServiceTypeKey}`)
-        return true
+       
     } catch (error) {
         throw error
     }
