@@ -75,7 +75,6 @@ export default function Contracts(){
                   <Button onClick={() => {alert('In development')}} variant="outlined" startIcon={<FileDownloadOutlinedIcon />}>
                     Export
                   </Button>
-                  <AddNew />
                   <Button disabled={!(selected.length > 0)} onClick={handleDelete} variant="outlined" startIcon={<DeleteOutline />}>
                     Delete
                   </Button>

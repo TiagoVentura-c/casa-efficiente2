@@ -22,7 +22,6 @@ import KeyIcon from '@mui/icons-material/Key';
 import DescriptionIcon from '@mui/icons-material/Description';
 import { AppContextInterface, AuthContext } from '../provider';
 import {  Plan, ServiceType } from '@/_types';
-import { ServiceCreateServiceTypes, ServiceEditServiceTypes } from '@/services/service-types';
 import { useSnackbar } from 'notistack';
 
 export default function CardNewPlan() {
@@ -87,12 +86,10 @@ export function PlanInfo({open, setOpen, edit=false, cardInfo }: {open: boolean,
 
       try {
           if(!edit){
-            const newST = await ServiceCreateServiceTypes({Key: key, Description: description, Id: 0})
             enqueueSnackbar('Service type created succesful!', { variant: 'success' });
             return setOpen(false)
           }
 
-          const newST: Plan & { NewKey: string } = await ServiceEditServiceTypes({Key: cardInfo?.Key as string, Description: description, Id: parseInt(id), NewKey: key})
           return setOpen(false)
       } catch (error) {
           enqueueSnackbar('Failed to execute operation ' + error, { variant: 'error' });

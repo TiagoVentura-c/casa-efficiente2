@@ -23,8 +23,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { PlanInfo } from './cardNew';
 import { AppContextInterface, AuthContext } from '../provider';
-import { ServiceDeletePlan } from '@/services/plans';
-import { ServiceDeleteServiceTypes } from '@/services/service-types';
 import { useSnackbar } from 'notistack';
 
 type Props = {
@@ -115,7 +113,6 @@ function AlertDialog( {open, setOpen, planKey}: {open: boolean, setOpen: any, pl
   /*delete * */
   const handleDelete = async () =>{
     try {
-      const res = await ServiceDeleteServiceTypes(planKey)
       enqueueSnackbar('Service type deleted successful!', { variant: 'success' });
 
       return setOpen(false)

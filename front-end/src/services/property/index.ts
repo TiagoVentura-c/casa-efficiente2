@@ -1,12 +1,10 @@
-import { properties as fakeProperties, contracts as fakeContracts } from "@/_data/fake/properties";
 import { ServiceType } from "@/_types";
 import { Contract, Immobile, Person } from "@/_types/index2";
 import apiManager from "@/api";
 
 export async function ServiceGetServiceProperty(){
     try {
-        const properties: Immobile[] = fakeProperties
-        return properties
+        return []
     } catch (error) {
         throw error
     }
@@ -14,8 +12,7 @@ export async function ServiceGetServiceProperty(){
 
 export async function ServiceGetServiceContracts(){
     try {
-        const contracts: Contract[] = fakeContracts
-        return contracts
+        return []
     } catch (error) {
         throw error
     }
